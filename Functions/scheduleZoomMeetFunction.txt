@@ -1,0 +1,30 @@
+
+response = Map();
+formValues = form.get("values");
+// info formValues;
+param = Map();
+header = Map();
+header.put("Content-Type","application/json");
+param.put("topic",formValues.get("topic"));
+param.put("type",2);
+str = formValues.get("date").get("date_time");
+year = str.subString(0,4);
+month = str.subString(5,7);
+day = str.subString(8,10);
+time = str.subString(11,16) + ":00";
+dateTime = day + "-" + month + "-" + year + " " + time;
+res = toDateTime(dateTime,"MM-d-yy");
+param.put("start_time",formValues.get("date").get("date_time").subString(0,11) + res.getTime(24,true));
+hourToMinutes = formValues.get("hour");
+minute = toNumber(hourToMinutes) * 60;
+param.put("duration",toNumber(formValues.get("minute")) + minute);
+apiResponse = invokeurl
+[
+	url :"https://api.zoom.us/v2/users/me/meetings"
+	type :POST
+	parameters:param.toString()
+	headers:header
+	connection:"zoomcliq"
+];
+response.put("text",apiResponse.get("join_url"));
+return response;

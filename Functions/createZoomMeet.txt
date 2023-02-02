@@ -1,0 +1,27 @@
+
+response = Map();
+params = Map();
+header = Map();
+header.put("Content-Type","application/json");
+formValues = form.get("values");
+params.put("topic","Quick Meet");
+params.put("type",2);
+day = today.getDay();
+month = today.getMonth();
+year = today.getYear();
+params.put("start_time",year + "-" + month + "-" + day + "T" + now.getTime(24,true));
+hourToMinutes = formValues.get("hour");
+minute = toNumber(hourToMinutes) * 60;
+params.put("duration",toNumber(formValues.get("minute")) + minute);
+response = invokeurl
+[
+	url :"https://api.zoom.us/v2/users/me/meetings"
+	type :POST
+	parameters:params.toString()
+	headers:header
+	connection:"zoomcliq"
+];
+result = Map();
+result.put("text","Join via Zoom Link : " + response.get("join_url"));
+info result;
+return result;

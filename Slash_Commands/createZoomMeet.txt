@@ -1,0 +1,2 @@
+
+return {"type":"form","title":"Zoom Meet","name":"Get a zoom meet instantly","button_label":"Create","inputs":{{"name":"hour","label":"Duration in Hours","placeholder":"1","min_length":"0","max_length":"25","mandatory":true,"type":"text"},{"name":"minute","label":"Duration in Minutes","placeholder":"60","min_length":"0","max_length":"25","mandatory":true,"type":"text"}},"action":{"type":"invoke.function","name":"createZoomMeet"}};

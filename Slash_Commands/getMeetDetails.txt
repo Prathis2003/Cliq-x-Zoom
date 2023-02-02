@@ -1,0 +1,24 @@
+
+response = Map();
+response = invokeurl
+[
+	url :"https://api.zoom.us/v2/users/me/meetings"
+	type :GET
+	connection:"zoomcliq"
+];
+number_of_records = toNumber(response.get("total_records"));
+// info response.get("meetings").get(0).get("topic");
+responseDb = Map();
+responseDb = response.get("meetings");
+meetingDetails = Map();
+for each  i in responseDb
+{
+	// 	tempMap = Map();
+	meetingDetails.put(i.get("id"),{"topic",i.get("topic")});
+}
+result = Map();
+result.put("text",response);
+// info meetingDetails.get(75025210099).get(0);
+// info response;
+// info responseDb;
+return result;
